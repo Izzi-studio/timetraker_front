@@ -1,10 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-// import { notify } from '@kyvg/vue3-notification'
 import { useAuthStore } from '@/stores/auth'
-// import { useMainStore } from '@/stores/main'
 import { getItem } from '@/helpers/persistanceStorage'
-// import { i18n } from '@/main'
 
 const routes = [
     {
@@ -23,19 +20,19 @@ const routes = [
         path: '/time-tracking',
         name: 'time-tracking',
         meta: { layout: 'main', auth: true, role: 'customer' },
-        component: () => import('@/views/TimeTracking'),
+        component: () => import('@/viewss/customers/TimeTracking'),
     },
     {
         path: '/statistics',
         name: 'statistics',
         meta: { layout: 'main', auth: true, role: 'customer' },
-        component: () => import('@/views/Statistics'),
+        component: () => import('@/views/customers/Statistics'),
     },
     {
         path: '/register-company',
         name: 'register-company',
         meta: { layout: 'empty' },
-        component: () => import('@/views/RegisterCompany'),
+        component: () => import('@/views/owners/RegisterCompany'),
     },
     {
         path: '/:pathMatch(.*)*',
@@ -51,11 +48,6 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-    // const mainStore = useMainStore()
-    // const isDifferentVersion = await mainStore.checkIsDifferentVersion()
-
-    // if(isDifferentVersion) window.location.href = to.fullPath 
-
     if (!getItem('accessToken') && to.meta.auth) {
         return {name: 'login', query: { redirect: to.fullPath }}
     }

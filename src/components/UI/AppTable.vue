@@ -1,13 +1,10 @@
 <script setup>
-import { onMounted, onBeforeUnmount, ref, computed, watch } from 'vue'
+import { onMounted, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '@/stores/main'
-import { useAuthStore } from '@/stores/auth'
 import AppRowDropdown from '@/components/UI/AppRowDropdown'
 
 const mainStore = useMainStore()
-const authStore = useAuthStore()
-const { isRoot } = storeToRefs(authStore)
 const { width } = storeToRefs(mainStore)
 
 const props = defineProps({
@@ -132,7 +129,6 @@ onBeforeUnmount(() => table.value.removeEventListener('mousedown', mouseDownHand
                         :key="field.key"
                     >
                         <th
-                            v-if="field.key != 'company' || isRoot"
                             :class="`col-${field.key}`"
                             @click="sortHandler(field.key, field.sortable)"
                             :data-sort="getSortAttr(field.key, field.sortable)"
@@ -152,7 +148,6 @@ onBeforeUnmount(() => table.value.removeEventListener('mousedown', mouseDownHand
                                 :key="field.key"
                             >
                                 <td
-                                    v-if="field.key != 'company' || isRoot"
                                     :class="`col-${field.key}`"
                                 >
                                     <slot :name="field.key" :item="item"></slot>
@@ -165,7 +160,6 @@ onBeforeUnmount(() => table.value.removeEventListener('mousedown', mouseDownHand
                                 :key="field.key"
                             >
                                 <tr
-                                    v-if="field.key != 'company' || isRoot"
                                     :class="`row-${field.key}`"
                                 >
                                     <td>{{field.text}}</td>
@@ -184,7 +178,6 @@ onBeforeUnmount(() => table.value.removeEventListener('mousedown', mouseDownHand
                             :key="field.key"
                         >
                             <td
-                                v-if="field.key != 'company' || isRoot"
                                 :class="`col-${field.key}`"
                             >
                                 <slot :name="field.key" :item="item"></slot>

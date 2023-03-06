@@ -33,10 +33,6 @@
         @include theme('light') {
             color: var(--color-black);
         }
-    
-        @include theme('dark') {
-            color: var(--color-white);
-        }
 
         @include r($sm) {
             padding-bottom: 10px;
@@ -54,10 +50,6 @@
                 @include theme('light') {
                     border-top: 1px solid var(--color-gray);
                 }
-    
-                @include theme('dark') {
-                    border-top: 1px solid rgba(var(--color-green-rgb), 0.15);
-                }
             }
 
             &:first-child {
@@ -73,10 +65,6 @@
                     td {
                         @include theme('light') {
                             background-color: rgba(var(--color-gray-rgb), 0.6);
-                        }
-        
-                        @include theme('dark') {
-                            background-color: rgba(var(--color-green-rgb), 0.3);
                         }
                     }
                 }
@@ -96,29 +84,17 @@
         @include theme('light') {
             background-image: arrows-sort-none("black");
         }
-
-        @include theme('dark') {
-            background-image: arrows-sort-none("white");
-        }
     }
 
     [data-sort="asc"] {
         @include theme('light') {
             background-image: arrows-sort-asc("black");
         }
-
-        @include theme('dark') {
-            background-image: arrows-sort-asc("white");
-        }
     }
 
     [data-sort="desc"] {
         @include theme('light') {
             background-image: arrows-sort-desc("black");
-        }
-
-        @include theme('dark') {
-            background-image: arrows-sort-desc("white");
         }
     }
 }
@@ -136,10 +112,6 @@
         
         @include theme('light') {
             background-color: rgba(var(--color-gray-rgb), 0.2) !important;
-        }
-    
-        @include theme('dark') {
-            background-color: rgba(var(--color-black-rgb), 0.3) !important;
         }
     }
 
@@ -169,112 +141,6 @@
                 padding-bottom: 15px;
             }
         }
-
-        .table_devices-statuses {
-            .col {
-                &-btn-dropdown {
-                    display: none;
-        
-                    @include r(1730) {
-                        display: table-cell;
-                    }
-                }
-        
-                &-in_work {
-                    width: 140px;
-                }
-        
-                &-location {
-                    width: 250px;
-                }
-        
-                &-company, &-last_sale, &-last_visit {
-                    @include r(1730) {
-                        display: none;
-                    }
-                }
-                
-                &-vended_amount, &-vended_count {
-                    @include r(1600) {
-                        display: none;
-                    }
-                }
-                
-                &-location {
-                    @include r(1300) {
-                        display: none;
-                    }
-                }
-        
-                &-project {
-                    @include r(992) {
-                        display: none;
-                    }
-                }
-        
-                &-door {
-                    @include r(650) {
-                        display: none;
-                    }
-                }
-        
-                &-in_work, &-last_temp {
-                    @include r($sm) {
-                        display: none;
-                    }
-                }
-            }
-        
-            .table-inner {
-                @include rmin(1730+1) {
-                    display: none;
-                }
-        
-                tr {
-                    display: none;
-                }
-        
-                .row {
-                    &-company,
-                    &-last_sale,
-                    &-last_visit {
-                        @include r(1730) {
-                            display: table-row;
-                        }
-                    }
-        
-                    &-vended_amount, &-vended_count {
-                        @include r(1600) {
-                            display: table-row;
-                        }
-                    }
-        
-                    &-location {
-                        @include r(1300) {
-                            display: table-row;
-                        }
-                    }
-        
-                    &-project {
-                        @include r(992) {
-                            display: table-row;
-                        }
-                    }
-        
-                    &-door {
-                        @include r(650) {
-                            display: table-row;
-                        }
-                    }
-        
-                    &-in_work, &-last_temp {
-                        @include r($sm) {
-                            display: table-row;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     &_horizontal-scroll {
@@ -283,37 +149,8 @@
         }
 
         .col {
-            &-in-work {
-                width: 140px;
-            }
-        
-            &-description {
-                width: 200px;
-            }
-
-            &-location {
+            &-comments {
                 width: 250px;
-            }
-
-            &-entry-date {
-                width: 210px;
-            }
-        }
-    }
-}
-
-.table_report {
-    tbody tr:first-child {
-        td {
-            border-top: 1px solid var(--color-red);
-            border-bottom: 1px solid var(--color-red);
-
-            &:first-child {
-                border-left: 1px solid var(--color-red);
-            }
-
-            &:last-child {
-                border-right: 1px solid var(--color-red);
             }
         }
     }

@@ -86,208 +86,181 @@ input[type="number"] {
     }
 }
 
-// .v-select {
-//     .vs__dropdown-toggle {
-//         min-height: 44px;
-//         border-radius: 10px;
-//         transition: 0.2s;
+.v-select {
+    .vs__dropdown-toggle {
+        min-height: 44px;
+        border-radius: 10px;
+        transition: 0.2s;
 
-//         @include theme("light") {
-//             background-color: var(--color-white);
-//             border-color: var(--color-gray);
-//             box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
-//         }
+        @include theme("light") {
+            background-color: var(--color-white);
+            border-color: var(--color-gray);
+            box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
+        }
+    }
 
-//         @include theme("dark") {
-//             background-color: var(--color-dark);
-//             border-color: rgba(var(--color-green-rgb), 0.5);
-//         }
-//     }
+    .vs__deselect svg {
+        fill: rgba(var(--color-red-rgb), 0.8);
+    }
 
-//     .vs__deselect svg {
-//         fill: rgba(var(--color-red-rgb), 0.8);
-//     }
+    .vs__selected-options {
+        padding-left: 20px;
+        padding-right: 4px;
+    }
 
-//     .vs__selected-options {
-//         padding-left: 20px;
-//         padding-right: 4px;
-//     }
+    .vs__search {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-//     .vs__search {
-//         padding-left: 0;
-//         padding-right: 0;
-//     }
+    .vs__selected {
+        margin-left: 0;
+        margin-right: 5px;
+        padding: 0;
+        background: none;
+        border: none;
 
-//     .vs__selected {
-//         margin-left: 0;
-//         margin-right: 5px;
-//         padding: 0;
-//         background: none;
-//         border: none;
+        @include theme("light") {
+            color: var(--color-black);
+        }
+    }
 
-//         @include theme("light") {
-//             color: var(--color-black);
-//         }
+    &.vs--multiple {
+        .vs__selected-options {
+            padding-left: 4px;
+        }
 
-//         @include theme("dark") {
-//             color: var(--color-white);
-//         }
-//     }
+        .vs__selected {
+            padding: 2px 7px;
+            border-radius: 7px;
+            border-width: 1px;
+            border-style: solid;
 
-//     &.vs--multiple {
-//         .vs__selected-options {
-//             padding-left: 4px;
-//         }
+            @include theme("light") {
+                border-color: var(--color-gray);
+            }
+        }
 
-//         .vs__selected {
-//             padding: 2px 7px;
-//             border-radius: 7px;
-//             border-width: 1px;
-//             border-style: solid;
+        .vs__search {
+            padding-left: 20px;
+        }
+    }
 
-//             @include theme("light") {
-//                 border-color: var(--color-gray);
-//             }
+    .vs__clear {
+        display: none;
+    }
 
-//             @include theme("dark") {
-//                 border-color: rgba(var(--color-green-rgb), 0.4);
-//             }
-//         }
+    .vs__actions {
+        padding-right: 10px;
+        padding-bottom: 3px;
+    }
 
-//         .vs__search {
-//             padding-left: 20px;
-//         }
-//     }
+    .vs__open-indicator {
+        width: 12px;
+        height: 12px;
+        fill: transparent;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% auto;
+        transition: 0.1s;
 
-//     .vs__clear {
-//         display: none;
-//     }
+        @include theme("light") {
+            background-image: arrow-bg-image("black");
+        }
+    }
 
-//     .vs__actions {
-//         padding-right: 10px;
-//         padding-bottom: 3px;
-//     }
+    .vs__dropdown-menu {
+        top: calc(100% + 4px);
+        border-radius: 10px;
+        padding: 0;
+        margin-bottom: 50px;
 
-//     .vs__open-indicator {
-//         width: 12px;
-//         height: 12px;
-//         fill: transparent;
-//         background-repeat: no-repeat;
-//         background-position: center;
-//         background-size: 100% auto;
-//         transition: 0.1s;
+        @include theme("light") {
+            background: var(--color-white);
+        }
+    }
 
-//         @include theme("light") {
-//             background-image: arrow-bg-image("black");
-//         }
+    .vs__dropdown-option {
+        line-height: 2;
 
-//         @include theme("dark") {
-//             opacity: 0.8;
-//             background-image: arrow-bg-image("green");
-//         }
-//     }
+        @include theme("light") {
+            color: var(--color-black);
+        }
 
-//     .vs__dropdown-menu {
-//         top: calc(100% + 4px);
-//         border-radius: 10px;
-//         padding: 0;
-//         margin-bottom: 50px;
+        &.vs__dropdown-option--selected {
+            background-color: rgba(var(--color-blue-rgb), 0.8);
+            color: var(--color-white);
+        }
 
-//         @include theme("light") {
-//             background: var(--color-white);
-//         }
+        &.vs__dropdown-option--highlight {
+            background-color: var(--color-blue);
+            color: var(--color-white);
+        }
+    }
 
-//         @include theme("dark") {
-//             background: var(--color-dark);
-//             box-shadow: 2px 2px 20px rgba(var(--color-green-rgb), 0.15);
-//         }
-//     }
+    &.vs--open {
+        &.vs--single {
+            .vs__selected {
+                position: absolute;
+                top: 6px;
+                opacity: 0.8;
+            }
+        }
 
-//     .vs__dropdown-option {
-//         line-height: 2;
+        .vs__dropdown-toggle {
+            border-color: var(--color-blue);
+        }
 
-//         @include theme("light") {
-//             color: var(--color-black);
-//         }
+        .vs__open-indicator {
+            opacity: 1;
+            background-image: arrow-bg-image("blue");
+        }
+    }
 
-//         @include theme("dark") {
-//             color: var(--color-white);
-//         }
+    .vs__no-options {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
 
-//         &.vs__dropdown-option--selected {
-//             background-color: rgba(var(--color-green-rgb), 0.8);
-//             color: var(--color-white);
-//         }
+    &.vs--dropdown {
+        .vs__dropdown-toggle {
+            background-color: var(--color-blue);
+            border-color: var(--color-blue);
+        }
 
-//         &.vs__dropdown-option--highlight {
-//             background-color: var(--color-green);
-//             color: var(--color-white);
-//         }
-//     }
+        .vs__dropdown-toggle {
+            padding-bottom: 0;
+        }
 
-//     &.vs--open {
-//         &.vs--single {
-//             .vs__selected {
-//                 position: absolute;
-//                 top: 6px;
-//                 opacity: 0.8;
-//             }
-//         }
-
-//         .vs__dropdown-toggle {
-//             border-color: var(--color-green);
-//         }
-
-//         .vs__open-indicator {
-//             opacity: 1;
-//             background-image: arrow-bg-image("green");
-//         }
-//     }
-
-//     .vs__no-options {
-//         padding-top: 8px;
-//         padding-bottom: 8px;
-//     }
-
-//     &.vs--dropdown {
-//         .vs__dropdown-toggle {
-//             background-color: var(--color-green);
-//             border-color: var(--color-green);
-//         }
-
-//         .vs__dropdown-toggle {
-//             padding-bottom: 0;
-//         }
-
-//         .vs__selected-options {
-//             align-items: center;
-//             .vs__selected {
-//                 margin-right: auto;
-//                 margin-left: auto;
-//                 margin-top: 1px;
-//                 font-weight: 500;
-//                 opacity: 1;
-//                 line-height: 1;
-//                 position: static;
-//                 color: var(--color-white);
-//             }
+        .vs__selected-options {
+            align-items: center;
+            .vs__selected {
+                margin-right: auto;
+                margin-left: auto;
+                margin-top: 1px;
+                font-weight: 500;
+                opacity: 1;
+                line-height: 1;
+                position: static;
+                color: var(--color-white);
+            }
     
-//             .vs__search {
-//                 display: none;
-//             }
-//         }
+            .vs__search {
+                display: none;
+            }
+        }
 
-//         .vs__open-indicator {
-//             background-image: arrow-bg-image("white") !important;
-//         }
-//     }
+        .vs__open-indicator {
+            background-image: arrow-bg-image("white") !important;
+        }
+    }
 
-//     &.vs--hours {
-//         .vs__dropdown-menu {
-//             max-height: 150px;
-//         }
-//     }
-// }
+    &.vs--hours {
+        .vs__dropdown-menu {
+            max-height: 150px;
+        }
+    }
+}
 
 button,
 input[type="submit"] {
@@ -411,22 +384,12 @@ a.btn, button.btn, .btn {
             border-color: var(--color-gray);
             background-color: var(--color-white);
         }
-
-        @include theme("dark") {
-            border-color: rgba(var(--color-green-rgb), 0.5);
-            background-color: var(--color-dark);
-        }
     }
 
     input[type="checkbox"]:checked + &__checkbox {
         @include theme("light") {
             background-image: check-bg-image("black");
             border-color: var(--color-gray);
-        }
-
-        @include theme("dark") {
-            background-image: check-bg-image("green");
-            border-color: var(--color-green);
         }
     }
 
@@ -496,11 +459,6 @@ a.btn, button.btn, .btn {
             border-color: var(--color-gray);
             background-color: var(--color-white);
         }
-
-        @include theme("dark") {
-            border-color: rgba(var(--color-green-rgb), 0.5);
-            background-color: var(--color-dark);
-        }
     }
 
     input[type="radio"]:checked + &__radio {
@@ -509,14 +467,6 @@ a.btn, button.btn, .btn {
             
             &::after {
                 background-color: var(--color-dark);
-            }
-        }
-
-        @include theme("dark") {
-            border-color: var(--color-green);
-
-            &::after {
-                background-color: var(--color-green);
             }
         }
     }
@@ -596,12 +546,6 @@ a.btn, button.btn, .btn {
         box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
     }
 
-    @include theme("dark") {
-        background-color: var(--color-dark);
-        border: 1px solid rgba(var(--color-green-rgb), 0.5);
-        color: var(--color-white);
-    }
-
     &.is-invalid {
         border-color: var(--color-red) !important;
     }
@@ -634,17 +578,11 @@ a.btn, button.btn, .btn {
             color: var(--color-black);
             box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
         }
-    
-        @include theme("dark") {
-            background-color: var(--color-dark);
-            border: 1px solid rgba(var(--color-green-rgb), 0.5);
-            color: var(--color-white);
-        }
     }
     
     .dp__input_icon {
         left: 10px;
-        color: var(--color-green);
+        color: var(--color-blue);
     }
 
     .dp__input_icons {
@@ -661,12 +599,6 @@ a.btn, button.btn, .btn {
         color: var(--color-black);
     }
 
-    @include theme("dark") {
-        background-color: var(--color-dark);
-        border: 1px solid rgba(var(--color-green-rgb), 0.5);
-        color: var(--color-white);
-    }
-
     .dp__month_year_wrap {
         pointer-events: none;
     }
@@ -680,21 +612,12 @@ a.btn, button.btn, .btn {
         @include theme("light") {
             color: var(--color-black);
         }
-
-        @include theme("dark") {
-            color: var(--color-white);
-        }
     }
 
     .dp__button, .dp__action_row, .dp__overlay {
         @include theme("light") {
             background-color: var(--color-white);
             color: var(--color-black);
-        }
-
-        @include theme("dark") {
-            background-color: var(--color-dark);
-            color: var(--color-white);
         }
     }   
 
@@ -703,14 +626,14 @@ a.btn, button.btn, .btn {
     }
 
     .dp__inner_nav {
-        color: var(--color-green);
+        color: var(--color-blue);
         &:hover {
             background: none;
         }
     }
 
     .dp__range_end, .dp__range_start, .dp__active_date {
-        background-color: var(--color-green);
+        background-color: var(--color-blue);
         color: var(--color-white);
     }
 
@@ -719,30 +642,21 @@ a.btn, button.btn, .btn {
             background-color: var(--color-white);
             border-color: var(--color-gray);
         }
-
-        @include theme("dark") {
-            background-color: var(--color-dark);
-            border-color: rgba(var(--color-green-rgb), 0.5);
-        }
     }
 
     .dp__today {
-        border-color: var(--color-green);
+        border-color: var(--color-blue);
     }
 
     .dp__range_between {
-        border-color: rgba(var(--color-green-rgb), 0.9);
-        background: rgba(var(--color-green-rgb), 0.9);
+        border-color: rgba(var(--color-blue-rgb), 0.9);
+        background: rgba(var(--color-blue-rgb), 0.9);
         color: var(--color-white);
     }
 
     .dp__calendar_header_separator {
         @include theme("light") {
             background-color: var(--color-gray);
-        }
-
-        @include theme("dark") {
-            background-color: rgba(var(--color-white-rgb), 0.3);
         }
     }
 }
