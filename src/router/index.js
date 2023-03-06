@@ -20,7 +20,7 @@ const routes = [
         path: '/time-tracking',
         name: 'time-tracking',
         meta: { layout: 'main', auth: true, role: 'customer' },
-        component: () => import('@/viewss/customers/TimeTracking'),
+        component: () => import('@/views/customers/TimeTracking'),
     },
     {
         path: '/statistics',
