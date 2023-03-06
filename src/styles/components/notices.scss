@@ -1,0 +1,112 @@
+.notices {
+    position: relative;
+    display: flex;
+    align-items: center;
+    &__btn {
+        cursor: pointer;
+    }
+
+    &__inner {
+        position: absolute;
+        top: 100%;
+        right: -112px;
+        padding-top: 15px;
+        display: none;
+        width: 320px;
+    }
+
+    &__content {
+        width: 100%;
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 20px;
+        border-radius: 10px;
+
+        @include theme("light") {
+            background-color: var(--color-white);
+            box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.6);
+        }
+    
+        @include theme("dark") {
+            background-color: var(--color-dark-100);
+            box-shadow: 2px 2px 15px rgba(var(--color-green-rgb), 0.3);
+        }
+    }
+
+    &:hover &__inner {
+        display: block;
+    }
+
+    &__counter {
+        position: absolute;
+        right: -8px;
+        top: -8px;
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgba(var(--color-green-rgb), 0.4);
+
+        @include theme("light") {
+            background-color: var(--color-white);
+        }
+    
+        @include theme("dark") {
+            background-color: var(--color-dark-100);
+        }
+    }
+}
+
+
+.notices-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    &__l {
+        min-width: 24px;
+        max-width: 24px;
+        padding-top: 3px;
+        margin-right: 10px;
+    }
+
+    .notices-item__m {
+        margin-right: auto;
+    }
+
+    &__r {
+        min-width: 24px;
+        max-width: 24px;
+        padding-top: 3px;
+        margin-left: 10px;
+    }
+
+    & + & {
+        margin-top: 15px;
+    }
+
+    .notices-item__date {
+        opacity: 0.6;
+        margin-top: 5px;
+        font-size: 13px;
+    }
+
+    &__check {
+        cursor: pointer;
+        opacity: 0.4;
+        
+        @include theme("light") {
+            fill: var(--color-black);
+        }
+    
+        @include theme("dark") {
+            fill: var(--color-green);
+        }
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+}

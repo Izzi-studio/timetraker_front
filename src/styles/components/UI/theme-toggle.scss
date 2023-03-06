@@ -1,0 +1,46 @@
+.theme-toggle {
+    min-width: 62px;
+    max-width: 62px;
+    height: 32px;
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+
+    @include theme("light") {
+        background: var(--color-green);
+    }
+
+    @include theme("dark") {
+        background: var(--color-green);
+    }
+
+    &::before {
+        display: block;
+        position: absolute;
+        top: 4px;
+        z-index: 2;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
+        background-repeat: no-repeat;
+        background-size: 16px auto;
+        background-position: center;
+        content: "";
+
+        @include theme("light") {
+            background-color: var(--color-white);
+            background-image: url('data: image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>');
+            left: 32px;
+        }
+
+        @include theme("dark") {
+            background-color: var(--color-dark-100);
+            background-image: url('data: image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>');
+            left: 4px;
+        }
+    }
+}

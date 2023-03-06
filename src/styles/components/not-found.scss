@@ -1,0 +1,30 @@
+.not-found {
+    text-align: center;
+    
+    &__title {
+        font-weight: 400;
+        font-size: 76px;
+
+        @include theme('light') {
+            color: var(--color-black);
+        }
+
+        @include theme('dark') {
+            color: var(--color-white);
+        }
+    }
+
+    &__text {
+        font-size: 26px;
+        letter-spacing: 0.03em;
+        margin-top: 20px;
+
+        @include theme('light') {
+            color: var(--color-black);
+        }
+
+        @include theme('dark') {
+            color: var(--color-white);
+        }
+    }
+}

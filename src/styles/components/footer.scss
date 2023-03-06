@@ -1,0 +1,18 @@
+.footer {
+    padding-top: 21px;
+    padding-bottom: 21px;
+    margin-top: 100px;
+
+    @include r($md) {
+        margin-top: 60px;
+    }
+
+    @include theme('light') {
+        background: var(--color-white);
+        box-shadow: 6px 6px 20px rgb(227, 227, 227);
+    }
+
+    &__copy {
+        text-align: center;
+    }
+}

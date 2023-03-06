@@ -1,0 +1,188 @@
+.VuePagination {
+    &__pagination {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__count {
+        display: none;
+    }
+
+    &__pagination-item {
+        width: 48px;
+        height: 48px;
+        
+        @include r($md) {
+            width: 46px;
+            height: 46px;
+        }
+
+        @include r($sm) {
+            min-width: 20px;
+        }
+        
+        button {
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 19px;
+            cursor: pointer;
+            border-width: 1px;
+            border-style: solid;
+            user-select: none;
+            transition: 0.1s;
+
+            @include r($sm) {
+                padding-top: 3px;
+            }
+
+            @include theme('light') {
+                background: var(--color-white);
+                border-color: var(--color-gray);
+                color: var(--color-black);
+
+                @include r($sm) {
+                    background: none;
+                    border: none;
+                }
+            }
+
+            @include theme('dark') {
+                background: var(--color-dark);
+                border-color: rgba(var(--color-green-rgb), 0.5);
+                color: var(--color-white);
+
+                @include r($sm) {
+                    background: none;
+                    border: none;
+                }
+            }
+        }
+    
+        &.active {
+            button {
+                font-weight: 700;
+    
+                @include theme('light') {
+                    color: var(--color-green);
+                    border-color: var(--color-green);
+                }
+
+                @include theme('dark') {
+                    color: var(--color-green);
+                    border-color: var(--color-green);
+                }
+            }
+        }
+
+        &:hover:not(.disabled, .active) {
+            button {
+                @include theme('light') {
+                    color: rgba(var(--color-green-rgb), 0.8);
+                    border-color: rgba(var(--color-green-rgb), 0.8);
+                }
+
+                @include theme('dark') {
+                    color: rgba(var(--color-green-rgb), 0.8);
+                    border-color: rgba(var(--color-green-rgb), 0.8);
+                }
+            }
+        }
+    
+        &-prev-page, &-next-page {
+
+            @include r($sm) {
+                min-width: 30px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+
+            button {
+                position: relative;
+                color: transparent !important;
+
+                @include r($sm) {
+                    @include theme('light') {
+                        background: var(--color-white);
+                        border: 1px solid var(--color-gray);
+                        color: var(--color-black);
+                    }
+
+                    @include theme('dark') {
+                        background: var(--color-dark);
+                        border: 1px solid rgba(var(--color-green-rgb), 0.5);
+                        color: var(--color-white);
+                    }
+                }
+
+                &::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: 12px auto;
+                    
+                    @include theme('light') {
+                        background-image: arrow-left-bg-image('black');
+                    }
+
+                    @include theme('dark') {
+                        background-image: arrow-left-bg-image('green');
+                    }
+                }
+            }
+        }
+    
+        &-next-page {
+            button {
+                &::before {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    
+        &-prev-chunk,
+        &-next-chunk {
+            display: none;
+        }
+    
+        &:not(&-prev-page, &-first-page) {
+            margin-left: 20px;
+
+            @include r($md) {
+                margin-left: 15px;
+            }
+
+            @include r($sm) {
+                margin-left: 20px;
+            }
+        }
+
+        &-first-page {
+            margin-right: 20px;
+
+            @include r($md) {
+                margin-right: 15px;
+            }
+
+            @include r($sm) {
+                margin-right: 20px;
+            }
+        }
+    }
+}
+

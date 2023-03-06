@@ -1,0 +1,18 @@
+.overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(var(--vh) * 100);
+
+    @include r($xl) {
+        &.active {
+            display: block;
+        }
+    }
+
+    @include theme('light') {
+        background-color: rgba(var(--color-white-rgb), 0.5);
+    }
+}

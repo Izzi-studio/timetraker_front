@@ -1,0 +1,343 @@
+.header {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    @include theme("light") {
+        background: var(--color-white);
+        box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
+    }
+}
+
+.header__container {
+    padding-top: 21px;
+    padding-bottom: 21px;
+    height: 80px;
+}
+
+.header__burger {
+    display: none;
+    margin-right: 20px;
+
+    @include r($xl) {
+        display: flex;
+    }
+}
+
+.header__logo {
+    min-width: 170px;
+    max-width: 170px;
+    height: auto;
+    display: block;
+    position: relative;
+    @include r(1700) {
+        min-width: 150px;
+        max-width: 150px;
+    }
+
+    @include r($sm) {
+        min-width: 130px;
+        max-width: 130px;
+    }
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 100px;
+
+    @include r(1700) {
+        padding-left: 50px;
+    }
+
+    @include r($xl) {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        transform: translateX(calc(-100% - 100px));
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        height: calc(var(--vh) * 100 - 80px);
+        overflow-y: auto;
+        width: 280px;
+        padding: 30px 20px 60px 20px;
+
+        @include theme("light") {
+            background-color: var(--color-white);
+            box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
+        }
+    }
+
+    &.transition {
+        transition: transform 0.2s;
+    }
+
+    &.active {
+        transform: translateX(0);
+    }
+}
+
+.header__menu {
+    display: flex;
+    align-items: center;
+
+    @include r($xl) {
+        margin-top: 20px;
+    }
+
+    & > .header__item {
+        margin-left: 60px;
+
+        @include r(1700) {
+            margin-left: 30px;
+        }
+
+        @include r($xxl) {
+            margin-left: 25px;
+        }
+
+        @include r($xl) {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+
+        &:first-child {
+            margin-left: 0;
+
+            @include r($xl) {
+                margin-top: 0;
+            }
+        }
+    }
+
+    @include r($xl) {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+}
+
+.header__menu,
+.header__action {
+    list-style: none;
+}
+
+.header__item {
+    @include r($xl) {
+        width: 100%;
+    }
+
+    a {
+        font-weight: 500;
+        text-decoration: none;
+
+        @include theme("light") {
+            color: var(--color-black);
+        }
+
+        &.router-link-active {
+            color: var(--color-blue);
+        }
+
+        @include rmin($xl) {
+            &:hover {
+                color: var(--color-blue);
+            }
+        }
+
+    }
+
+    &.has-submenu {
+        position: relative;
+        & > a {
+            position: relative;
+            display: inline-block;
+            padding-right: 20px;
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 4px;
+                right: 0;
+                width: 12px;
+                height: 12px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 100% auto;
+                transition: 0.1s;
+
+                @include theme("light") {
+                    background-image: arrow-bg-image("black");
+                }
+            }
+        }
+
+        @include rmin($xl) {
+            &:hover {
+                & > a {
+                    color: var(--color-blue);
+
+                    &::after {
+                        transform: rotate(180deg);
+                        background-image: arrow-bg-image("blue");
+                    }
+                }
+
+                & > .header__submenu {
+                    display: block;
+                }
+            }
+        }
+
+        @include r($xl) {
+            &.active {
+                & > a {
+                    color: var(--color-blue);
+
+                    &::after {
+                        transform: rotate(180deg);
+                        background-image: arrow-bg-image("blue");
+                    }
+                }
+
+                & > .header__submenu {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.header__submenu {
+    position: absolute;
+    display: none;
+
+    @include r($xl) {
+        position: static;
+    }
+
+    ul {
+        list-style: none;
+        width: 250px;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        position: relative;
+
+        @include theme("light") {
+            background: var(--color-white);
+            border-color: var(--color-gray);
+            box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
+
+            @include r($xl) {
+                border-color: initial;
+                box-shadow: none;
+                border: none;
+            }
+        }
+
+        @include r($xl) {
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 0;
+        }
+    }
+
+    .header__item {
+        margin-top: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 25px;
+        padding-right: 25px;
+
+        @include r($xl) {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        &.has-submenu {
+            position: static;
+            @include rmin($xl) {
+                & > a {
+                    &::after {
+                        transform: rotate(-90deg);
+                    }
+                }
+            }
+        }
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+
+@include rmin($xl) {
+    .header__submenu_level_1 {
+        top: 100%;
+        left: -40px;
+        padding-top: 14px;
+    }
+
+    .header__submenu_level_2 {
+        top: 0;
+        left: 100%;
+        padding-left: 10px;
+        min-height: 100%;
+    }
+}
+
+.header__action {
+    display: flex;
+    align-items: center;
+
+    @include r($xl) {
+        order: -1;
+        padding-bottom: 15px;
+        width: 100%;
+    }
+}
+
+.header__item_logout,
+.header__item_user {
+    a {
+        align-items: center;
+        display: flex;
+    }
+}
+
+.header__item_logout {
+    margin-left: 40px;
+
+    @include r(1700) {
+        margin-left: 20px;
+    }
+}
+
+.header__lang {
+    font-size: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 500;
+    &:hover {
+        text-decoration: underline;
+    }
+
+    @include theme("light") {
+        color: var(--color-black);
+    }
+}

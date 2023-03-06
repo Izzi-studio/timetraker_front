@@ -1,0 +1,41 @@
+@use "sass:map";
+
+$fa-font-path: "@/assets/fonts/fontawesome";
+@import "@/styles/fontawesome/fontawesome";
+@import "@/styles/fontawesome/solid";
+
+@import "node_modules/normalize.css/normalize";
+// @import "node_modules/vue-select/dist/vue-select";
+// @import "node_modules/@vuepic/vue-datepicker/dist/main";
+// @import "node_modules/floating-vue/dist/style";
+
+@import "@/styles/bootstrap";
+
+@import "@/styles/fonts";
+@import "@/styles/utils";
+@import "@/styles/variables";
+@import "@/styles/general";
+
+@import "@/styles/form";
+// @import "@/styles/charts";
+
+@import "@/styles/components/UI/loader";
+// @import "@/styles/components/UI/modal";
+@import "@/styles/components/UI/burger";
+// @import "@/styles/components/UI/table";
+// @import "@/styles/components/UI/pagination";
+@import "@/styles/components/UI/notification";
+@import "@/styles/components/UI/overlay";
+// @import "@/styles/components/UI/theme-toggle";
+@import "@/styles/components/UI/icon";
+// @import "@/styles/components/UI/breadcrumbs";
+// @import "@/styles/components/UI/tooltip";
+
+@import "@/styles/components/header";
+@import "@/styles/components/footer";
+// @import "@/styles/components/notices";
+// @import "@/styles/components/filter";
+@import "@/styles/components/login";
+// @import "@/styles/components/technical-work";
+@import "@/styles/components/not-found";
+// @import "@/styles/components/device";

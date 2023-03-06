@@ -1,0 +1,32 @@
+.login {
+    max-width: 455px;
+    width: 100%;
+    padding: 50px 38px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include theme('light') {
+        background: var(--color-white);
+        border: 1px solid var(--color-gray);
+        box-shadow: 6px 6px 20px rgba(227, 227, 227, 0.25);
+    }
+
+    @include r($sm) {
+        padding: 40px 15px;
+    }
+}
+
+.login__inst {
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+}
+
+.login__form {
+    margin-top: 30px;
+    width: 100%;
+}

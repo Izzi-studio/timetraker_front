@@ -1,0 +1,20 @@
+.app-icon-bg {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 12px;
+
+    @include theme('light') {
+        background-color: var(--color-white);
+        box-shadow: 6px 6px 20px rgba(var(--color-gray-rgb), 0.5);
+    }
+}
+
+.app-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: var(--color-blue);
+}

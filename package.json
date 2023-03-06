@@ -1,0 +1,43 @@
+{
+  "name": "timetracker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "staging": "vite build --mode development",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@kyvg/vue3-notification": "^2.6.1",
+    "@vuelidate/components": "^1.2.3",
+    "@vuelidate/core": "^2.0.0",
+    "@vuelidate/validators": "^2.0.0",
+    "@vuepic/vue-datepicker": "^3.6.5",
+    "axios": "^1.2.1",
+    "bootstrap": "^5.2.2",
+    "chart.js": "^4.1.1",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^2.29.3",
+    "floating-vue": "^2.0.0-beta.20",
+    "normalize.css": "^8.0.1",
+    "pinia": "^2.0.23",
+    "ua-parser-js": "^1.0.32",
+    "v-pagination-3": "^0.1.7",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue": "^3.2.13",
+    "vue-chartjs": "^5.1.0",
+    "vue-final-modal": "^3.4.11",
+    "vue-i18n": "^9.2.2",
+    "vue-imask": "^6.4.3",
+    "vue-router": "^4.1.6",
+    "vue-select": "^4.0.0-beta.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@intlify/unplugin-vue-i18n": "^0.7.0",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "sass": "^1.55.0",
+    "vite": "^3.2.1"
+  }
+}

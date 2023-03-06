@@ -1,0 +1,23 @@
+.breadcrumbs {
+    a, span, .btn-link {
+        line-height: 22px;
+        position: relative;
+        margin-right: 22px;
+        &:not(:last-child) {
+            &::after {
+                position: absolute;
+                left: calc(100% + 7px);
+                content: '>';
+                pointer-events: none;
+
+                @include theme('light') {
+                    color: var(--color-black);
+                }
+
+                @include theme('dark') {
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+}
