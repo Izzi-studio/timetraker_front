@@ -11,6 +11,8 @@ axiosHelper.interceptors.request.use(config => {
     const authorizationToken = token ? `Bearer ${token}` : ''
     
     config.headers.Authorization = authorizationToken
+    config.headers['Time-Zone'] = Intl.DateTimeFormat().resolvedOptions().timeZone
+
     return config
 })
 

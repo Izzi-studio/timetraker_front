@@ -22,8 +22,17 @@ const de = {
     'company_registered': 'Ihre Anfrage zur Firmenregistrierung wurde gesendet',
     'owner_inactiv_company': 'Ihr Konto ist inaktiv',
     'owner_blocked_company': 'Ihr Konto ist vorübergehend gesperrt',
-    'customer_blocked_company': 'Ihr Firmenkonto ist inaktiv',
+    'customer_inactiv_company': 'Ihr Firmenkonto ist inaktiv',
     'customer_blocked_company': 'Ihr Firmenkonto ist vorübergehend gesperrt',
+    'time_tracking': 'Zeiterfassung',
+    'statistics': 'Statistiken',
+    'start_work_time_btn': 'Schicht beginnen',
+    'stop_work_time_btn': 'Beende deine Schich',
+    'pause': 'Pause',
+    'continue': 'Weitermachen',
+    'work_time_closed': 'Ihre Schicht ist vorbei',
+    'start_work_time': 'Schichtbeginn',
+    'stop_work_time': 'Ende der Schicht',
 }
 
 export default de

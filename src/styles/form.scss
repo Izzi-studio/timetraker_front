@@ -347,6 +347,11 @@ a.btn, button.btn, .btn {
         color: var(--color-white);
     }
 
+    &-yellow {
+        background-color: var(--color-yellow);
+        color: var(--color-white);
+    }
+
     &-dropdown {
         width: 44px;
         height: 44px;

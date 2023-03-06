@@ -20,6 +20,18 @@ const routes = [
         component: () => import('@/views/Login'),
     },
     {
+        path: '/time-tracking',
+        name: 'time-tracking',
+        meta: { layout: 'main', auth: true, role: 'customer' },
+        component: () => import('@/views/TimeTracking'),
+    },
+    {
+        path: '/statistics',
+        name: 'statistics',
+        meta: { layout: 'main', auth: true, role: 'customer' },
+        component: () => import('@/views/Statistics'),
+    },
+    {
         path: '/register-company',
         name: 'register-company',
         meta: { layout: 'empty' },
@@ -60,9 +72,13 @@ router.beforeEach(async (to) => {
                 }
 
                 if (
-                    (authStore.info.role === 'owner' || authStore.info.role === 'customer') &&
-                    (authStore.info.active_company === 'inactiv' || authStore.info.active_company === 'blocked')
+                    (authStore.isUserOwner || authStore.isUserCustomer) &&
+                    (authStore.isCompanyStatusInactiv || authStore.isCompanyStatusBlocked)
                 ) {
+                    return { name: 'home' }
+                }
+
+                if (authStore.info.role !== to.meta.role) {
                     return { name: 'home' }
                 }
             } catch (e) {

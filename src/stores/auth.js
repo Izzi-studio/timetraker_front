@@ -24,6 +24,21 @@ export const useAuthStore = defineStore('auth', {
 
             return state.info.role === 'admin'
         },
+        isCompanyStatusActive(state) {
+            if(!state.info) return false 
+
+            return state.info.active_company === 'active'
+        },
+        isCompanyStatusBlocked(state) {
+            if(!state.info) return false 
+
+            return state.info.active_company === 'blocked'
+        },
+        isCompanyStatusInactiv(state) {
+            if(!state.info) return false 
+
+            return state.info.active_company === 'inactiv'
+        },
     },
     actions: {
         async logout() {

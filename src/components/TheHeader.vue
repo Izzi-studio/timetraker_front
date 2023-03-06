@@ -16,6 +16,7 @@ const route = useRoute()
 const authStore = useAuthStore()
 const mainStore = useMainStore()
 const { width } = storeToRefs(mainStore)
+const { isUserOwner, isUserCustomer, isUserAdmin } = storeToRefs(authStore)
 const { logout } = authStore
 
 const isActiveNav = ref(false)
@@ -61,15 +62,16 @@ watch(() => route.name, () => {
                     <li class="header__item">
                         <RouterLink :to="{ name: 'home' }">{{ $t('homepage') }}</RouterLink>
                     </li>
+                    <template v-if="isUserCustomer">
+                        <li class="header__item">
+                            <RouterLink :to="{ name: 'statistics' }">{{ $t('statistics') }}</RouterLink>
+                        </li>
+                        <li class="header__item">
+                            <RouterLink :to="{ name: 'time-tracking' }">{{ $t('time_tracking') }}</RouterLink>
+                        </li>
+                    </template>
                 </ul>
                 <ul class="header__action">
-                    <!-- <li class="header__item header__item_user">
-                        <RouterLink :to="{ name: 'profile' }">
-                            <span class="d-inline d-xl-none d-xxl-inline me-2">{{ $t('personal_cabinet') }}</span>
-                            <AppIcon name="user" size="24" />
-                        </RouterLink>
-                    </li> -->
-
                     <li class="header__item">
                         <button class="btn-link color-red" @click="initLogout">Ausloggen</button>
                     </li>
