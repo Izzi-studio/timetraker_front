@@ -81,7 +81,7 @@ const de = {
     'current_status': 'Aktueller Status',
     'weekend_day': 'Freier Tag',
     'start_day': 'Arbeitstag geht',
-    'stop_day': 'der Arbeitstag ist vorbei',
+    'stop_day': 'Der Arbeitstag ist vorbei',
     'sick_day': 'Krankentag',
     'vocation_day': 'Ferientag',
     'update_comments': 'Kommentar aktualisieren',
@@ -105,7 +105,9 @@ const de = {
     'cancel': 'Abschaffung',
     'create': 'Erstellen',
     'create_customer': 'Einen Mitarbeiter anlegen',
-    'customer_created': 'Mitarbeiter erstellt'
+    'customer_created': 'Mitarbeiter erstellt',
+    'customer_updated': 'Mitarbeiter aktualisiert',
+    'select': 'Wählen'
 }
 
 export default de

@@ -13,12 +13,9 @@ const attrs = useAttrs()
         :select-text="$t('select')"
         :cancel-text="$t('cancel')"
         :clearable="false"
-        :enableTimePicker="false"
-        :locale="mainStore.lang"
+        locale="de"
         :offset="15"
         position="left"
-        format="yyyy-MM-dd"
-        placeholder="YYYY-MM-DD"
         v-bind="attrs"
     />
 </template>

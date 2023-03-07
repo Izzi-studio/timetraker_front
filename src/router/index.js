@@ -35,8 +35,20 @@ const routes = [
         component: () => import('@/views/owners/CustomersList'),
     },
     {
+        path: '/customer/:id/view',
+        name: 'owner-customer-info',
+        meta: { layout: 'main', auth: true, role: 'owner' },
+        component: () => import('@/views/owners/CustomerInfo'),
+    },
+    {
+        path: '/customer/:id/statistics',
+        name: 'owner-customer-statistics',
+        meta: { layout: 'main', auth: true, role: 'owner' },
+        component: () => import('@/views/owners/CustomerStatistics'),
+    },
+    {
         path: '/customers/create',
-        name: 'owner-create-customer',
+        name: 'owner-customer-create',
         meta: { layout: 'main', auth: true, role: 'owner' },
         component: () => import('@/views/owners/CustomerCreate'),
     },

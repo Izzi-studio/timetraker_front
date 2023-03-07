@@ -614,6 +614,10 @@ a.btn, button.btn, .btn {
         }
     }
 
+    .dp__select {
+        color: var(--color-blue);
+    }
+
     .dp__button, .dp__action_row, .dp__overlay {
         @include theme("light") {
             background-color: var(--color-white);

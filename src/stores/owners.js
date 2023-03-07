@@ -4,9 +4,37 @@ import axiosHelper from '@/helpers/axios'
 export const useOwnersStore = defineStore('owners', {
     state: () => ({
         isLoading: false,
-        isShowModalDeleteCustomer: false
+        isShowModalDeleteCustomer: false,
+        isShowModalEdit: false,
     }),
     actions: {
+        async loadCustomer(id) {
+            try {
+                this.isLoading = true
+
+                const response = await axiosHelper.get(`/owner/customers/${id}`)
+
+                return response.data.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async updateCustomer(id, form) {
+            try {
+                this.isLoading = true
+
+                await axiosHelper.post(`/owner/customers/${id}`, {
+                    ...form,
+                    _method: 'PUT'
+                })
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
         async createCustomer(form) {
             try {
                 this.isLoading = true
@@ -45,6 +73,21 @@ export const useOwnersStore = defineStore('owners', {
                 this.isLoading = true
 
                 const response = await axiosHelper.get('/owner/customers', {
+                    params
+                })
+
+                return response.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async loadCustomerStatistic(id, params) {
+            try {
+                this.isLoading = true
+
+                const response = await axiosHelper.get(`/owner/statistic/${id}`, {
                     params
                 })
 

@@ -159,10 +159,6 @@ const initDeleteCustomer = async () => {
         notify({ type: "error", text: t(e.message) })
     }
 }
-
-watch(() => isShowModalDeleteCustomer.value, (val) => {
-    if(!val) deleteItemId.value = null
-})
 </script>
 
 <template>
@@ -173,7 +169,7 @@ watch(() => isShowModalDeleteCustomer.value, (val) => {
         </div>
 
         <div class="mt-4">
-            <RouterLink class="btn btn-blue" :to="{ name: 'owner-create-customer'}">{{$t('create')}}</RouterLink>
+            <RouterLink class="btn btn-blue" :to="{ name: 'owner-customer-create'}">{{$t('create')}}</RouterLink>
         </div>
 
         <div v-if="items.length" :class="{'state-update': isLoading}">
@@ -213,9 +209,12 @@ watch(() => isShowModalDeleteCustomer.value, (val) => {
                     {{ item.weekend_days_count }}
                 </template>
                 <template #actions="{ item }">
-                    <button class="btn btn-icon btn-blue">
-                        <i class="fa-solid fa-eye"></i>
-                    </button>
+                    <RouterLink :to="{name: 'owner-customer-info', params: { id: item.id }}" class="btn btn-icon btn-blue">
+                        <i class="fa-solid fa-info"></i>
+                    </RouterLink>
+                    <RouterLink :to="{name: 'owner-customer-statistics', params: { id: item.id }}" class="btn btn-icon btn-blue ms-2">
+                        <i class="fa-solid fa-table"></i>
+                    </RouterLink>
                     <button @click="deleteItemId = item.id; isShowModalDeleteCustomer = true" class="btn btn-icon btn-blue ms-2">
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -256,7 +255,7 @@ watch(() => isShowModalDeleteCustomer.value, (val) => {
             </div>
         </AppFilter>
 
-        <AppModal v-model="isShowModalDeleteCustomer">
+        <AppModal v-model="isShowModalDeleteCustomer" @closed="deleteItemId = null">
             <template v-slot:title><span v-html="$t('are_you_sure_you_want_delete_customer')"></span></template>
             <div class="mt-2 d-flex justify-content-start">
                 <button @click="initDeleteCustomer" class="btn btn-red">{{ $t('yes') }}</button>
