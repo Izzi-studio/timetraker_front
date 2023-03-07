@@ -84,6 +84,28 @@ const de = {
     'stop_day': 'der Arbeitstag ist vorbei',
     'sick_day': 'Krankentag',
     'vocation_day': 'Ferientag',
+    'update_comments': 'Kommentar aktualisieren',
+    'customers': 'Mitarbeiter',
+    'company_info': 'Unternehmen',
+    'date_d': 'tag.',
+    'date_h': 'std.',
+    'date_m': 'min.',
+    'date_s': 'sek.',
+    'total': 'in Summe',
+    'update': 'Aktualisieren',
+    'send_request_update_company_info': 'Anfrage zur Datenaktualisierung gesendet',
+    'position': 'Position',
+    'weekend_days': 'das Wochenende',
+    'actions': 'Aktionen',
+    'customer_deleted': 'Mitarbeiter wurde erfolgreich gelöscht',
+    'Your do not delete self': 'Du kannst dich nicht selbst löschen',
+    'are_you_sure_you_want_delete_customer': 'Möchten Sie diesen<br> Mitarbeiter wirklich entfernen?',
+    'yes': 'Ja',
+    'no': 'Nein',
+    'cancel': 'Abschaffung',
+    'create': 'Erstellen',
+    'create_customer': 'Einen Mitarbeiter anlegen',
+    'customer_created': 'Mitarbeiter erstellt'
 }
 
 export default de

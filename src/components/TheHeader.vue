@@ -54,7 +54,7 @@ watch(() => route.name, () => {
 <template>
     <header class="header">
         <div @click="isActiveNav = false" class="overlay" :class="{'active': isActiveNav}"></div>
-        <div class="container header__container">
+        <div class="app-container header__container">
             <AppBurger @click="isActiveNav = !isActiveNav" class="header__burger" :class="{ 'active': isActiveNav }" />
             <img src="@/assets/images/logo.svg" alt="" class="header__logo">
             <div class="header__nav" :class="navClasses">
@@ -68,6 +68,14 @@ watch(() => route.name, () => {
                         </li>
                         <li class="header__item">
                             <RouterLink :to="{ name: 'time-tracking' }">{{ $t('time_tracking') }}</RouterLink>
+                        </li>
+                    </template>
+                    <template v-if="isUserOwner">
+                        <li class="header__item">
+                            <RouterLink :to="{ name: 'owner-customers' }">{{ $t('customers') }}</RouterLink>
+                        </li>
+                        <li class="header__item">
+                            <RouterLink :to="{ name: 'owner-info' }">{{ $t('company_info') }}</RouterLink>
                         </li>
                     </template>
                 </ul>

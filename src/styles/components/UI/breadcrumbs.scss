@@ -13,10 +13,6 @@
                 @include theme('light') {
                     color: var(--color-black);
                 }
-
-                @include theme('dark') {
-                    color: var(--color-white);
-                }
             }
         }
     }

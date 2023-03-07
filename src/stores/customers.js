@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axiosHelper from '@/helpers/axios'
 
-export const useCustomerStore = defineStore('customer', {
+export const useCustomersStore = defineStore('customers', {
     state: () => ({
         isLoading: false
     }),

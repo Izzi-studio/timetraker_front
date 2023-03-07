@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import { notify } from '@kyvg/vue3-notification'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
-import { useCustomerStore } from '@/stores/customer'
+import { useCustomersStore } from '@/stores/customers'
 import { months, years } from '@/helpers/vars'
 import getTextForTrackerStatuses from '@/helpers/getTextForTrackerStatuses'
 import isSet from '@/helpers/isSet'
@@ -12,15 +12,16 @@ import isSet from '@/helpers/isSet'
 import AppFormSelect from '@/components/UI/AppFormSelect'
 import AppTable from '@/components/UI/AppTable'
 import AppFilter from '@/components/AppFilter'
+import TimeSpent from '@/components/TimeSpent'
 
 const { t } = useI18n()
 
 const router = useRouter()
 const route = useRoute()
 
-const customerStore = useCustomerStore()
-const { loadStatistic } = customerStore
-const { isLoading } = storeToRefs(customerStore)
+const customersStore = useCustomersStore()
+const { loadStatistic } = customersStore
+const { isLoading } = storeToRefs(customersStore)
 
 const defaultYear = new Date().getFullYear()
 const isOpenFilter = ref(false)
@@ -150,10 +151,22 @@ onMounted(async () => {
             class-wrap="mt-4 pt-2"
             type="horizontal-scroll" 
             :fields="fieldsForYearsAndMonth" 
-            :data="items"
+            :data="[
+                {
+                    total: true,
+                    total_work: items.reduce((sum, current) => sum + current.work_minutes, 0) * 60,
+                    total_pause: items.reduce((sum, current) => sum + current.pause_minutes, 0) * 60,
+                },
+                ...items
+            ]"
         >
             <template #date="{ item }">
-                {{ `${$t(item.date.split(',')[0])},  ${item.date.split(',')[1]}` }}
+                <template v-if="item.total">
+                    {{$t('total')}}
+                </template>
+                <template v-else>
+                    {{ `${$t(item.date.split(',')[0])},  ${item.date.split(',')[1]}` }}
+                </template>
             </template>
             <template #date_start="{ item }">
                 {{ item.date_start }}
@@ -162,13 +175,25 @@ onMounted(async () => {
                 {{ item.date_stop }}
             </template>
             <template #total_work="{ item }">
-                {{ item.total_work }}
+                <template v-if="item.total">
+                    <TimeSpent :value="item.total_work" />
+                </template>
+                <template v-else>
+                    {{ item.total_work }}
+                </template>
             </template>
             <template #total_pause="{ item }">
-                {{ item.total_pause }}
+                <template v-if="item.total">
+                    <TimeSpent :value="item.total_pause" />
+                </template>
+                <template v-else>
+                    {{ item.total_pause }}
+                </template>
             </template>
             <template #current_status="{ item }">
-                {{ $t(getTextForTrackerStatuses(item.current_status)) }}
+                <template v-if="!item.total">
+                    {{ $t(getTextForTrackerStatuses(item.current_status)) }}
+                </template>
             </template>
             <template #comments="{ item }">
                 {{ item.comments }}

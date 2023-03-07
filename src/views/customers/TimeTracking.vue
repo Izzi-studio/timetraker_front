@@ -1,18 +1,18 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import { notify } from '@kyvg/vue3-notification'
-import { setItem, removeItem, getItem } from '@/helpers/persistanceStorage'
-import { useCustomerStore } from '@/stores/customer'
+import { useCustomersStore } from '@/stores/customers'
 
 import AppFormTextarea from '@/components/UI/AppFormTextarea'
 
-const customerStore = useCustomerStore()
-const { availableActions, tracker, updateComments } = customerStore
+const customersStore = useCustomersStore()
+const { availableActions, tracker, updateComments } = customersStore
 
 const actions = ref([])
 const currentDay = ref(null)
 const comments = ref('')
 const trackerId = ref(null)
+const isUpdatingComments = ref(false)
 
 onMounted(async () => {
     try {
@@ -21,35 +21,13 @@ onMounted(async () => {
         actions.value = data.actions
         currentDay.value = data.current_day
         trackerId.value = data.current_day.id
-
-        if (!data.current_day.date_start) removeItem('comments')
-
-        if (data.current_day.date_stop) {
-            comments.value = data.comments
-        } else {
-            comments.value = getItem('comments') || ''
-        }
-
-        watch(() => comments.value, (val) => {
-            setItem('comments', val)
-        })
+        comments.value = data.current_day.comments
     } catch (e) {
         notify({ type: "error", text: e.message })
     }
 })
 
 const initTracker = async (typeAction) => {
-    if (typeAction === 'stop_day') {
-        try {
-            await updateComments({
-                trackerId: trackerId.value, 
-                comments: comments.value
-            })
-        } catch (e) {
-            notify({ type: "error", text: e.message })
-        }
-    }
-
     try {
         const data = await tracker(typeAction)
 
@@ -59,6 +37,21 @@ const initTracker = async (typeAction) => {
         notify({ type: "error", text: e.message })
     }
 }
+
+const initUpdateComments = async () => {
+    try {
+        isUpdatingComments.value = true
+
+        await updateComments({
+            trackerId: trackerId.value, 
+            comments: comments.value
+        })
+    } catch (e) {
+        notify({ type: "error", text: e.message })
+    } finally {
+        isUpdatingComments.value = false
+    }
+} 
 </script>
 
 <template>
@@ -114,6 +107,15 @@ const initTracker = async (typeAction) => {
                 :label="$t('comments')"
                 v-model="comments"
             />
+            <button 
+                v-if="currentDay.date_start && !currentDay.date_stop" 
+                @click="initUpdateComments"
+                :disabled="isUpdatingComments"
+                class="btn btn-blue mt-4"
+            >
+                <div v-if="isUpdatingComments" class="spinner-grow me-2"></div>
+                {{$t('update_comments')}}
+            </button>
         </template>
     </div>
 </template>

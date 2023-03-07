@@ -29,10 +29,28 @@ const routes = [
         component: () => import('@/views/customers/Statistics'),
     },
     {
+        path: '/customers',
+        name: 'owner-customers',
+        meta: { layout: 'main', auth: true, role: 'owner' },
+        component: () => import('@/views/owners/CustomersList'),
+    },
+    {
+        path: '/customers/create',
+        name: 'owner-create-customer',
+        meta: { layout: 'main', auth: true, role: 'owner' },
+        component: () => import('@/views/owners/CustomerCreate'),
+    },
+    {
+        path: '/company-info',
+        name: 'owner-info',
+        meta: { layout: 'main', auth: true, role: 'owner' },
+        component: () => import('@/views/owners/CompanyInfo'),
+    },
+    {
         path: '/register-company',
         name: 'register-company',
         meta: { layout: 'empty' },
-        component: () => import('@/views/owners/RegisterCompany'),
+        component: () => import('@/views/owners/CompanyRegister'),
     },
     {
         path: '/:pathMatch(.*)*',
