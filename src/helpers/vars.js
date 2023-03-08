@@ -55,29 +55,36 @@ export const years = [
     new Date(new Date().setFullYear(new Date().getFullYear() - 2)).getFullYear(),
 ]
 
+// export const trackerStatuses = [
+//     {
+//         id: 0,
+//         name: 'weekend_day'
+//     },
+//     {
+//         id: 1,
+//         name: 'start_day'
+//     },
+//     {
+//         id: 2,
+//         name: 'stop_day'
+//     },
+//     {
+//         id: 3,
+//         name: 'pause'
+//     },
+//     {
+//         id: 5,
+//         name: 'sick_day'
+//     },
+//     {
+//         id: 6,
+//         name: 'vocation_day'
+//     },
+// ]
+
 export const trackerStatuses = [
-    {
-        id: 0,
-        name: 'weekend_day'
-    },
-    {
-        id: 1,
-        name: 'start_day'
-    },
-    {
-        id: 2,
-        name: 'stop_day'
-    },
-    {
-        id: 3,
-        name: 'pause'
-    },
-    {
-        id: 5,
-        name: 'sick_day'
-    },
-    {
-        id: 6,
-        name: 'vocation_day'
-    },
+    'weekend_day',
+    'stop_day',
+    'sick_day',
+    'vocation_day',
 ]

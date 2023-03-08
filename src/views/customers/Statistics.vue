@@ -6,7 +6,6 @@ import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 import { useCustomersStore } from '@/stores/customers'
 import { months, years } from '@/helpers/vars'
-import getTextForTrackerStatuses from '@/helpers/getTextForTrackerStatuses'
 import isSet from '@/helpers/isSet'
 
 import AppFormSelect from '@/components/UI/AppFormSelect'
@@ -48,7 +47,7 @@ const fieldsForYears = computed(() => {
         },
         {
             text: t('total_pause'),
-            key: 'total_pause'
+            key: 'sum_total_pause'
         },
         {
             text: t('total_sick_days'),
@@ -60,7 +59,7 @@ const fieldsForYears = computed(() => {
         },
         {
             text: t('total_work'),
-            key: 'total_work'
+            key: 'sum_total_work'
         },
         {
             text: t('total_work_days'),
@@ -192,7 +191,7 @@ onMounted(async () => {
             </template>
             <template #current_status="{ item }">
                 <template v-if="!item.total">
-                    {{ $t(getTextForTrackerStatuses(item.current_status)) }}
+                    {{ $t(item.current_status) }}
                 </template>
             </template>
             <template #comments="{ item }">
@@ -210,8 +209,8 @@ onMounted(async () => {
             <template #date="{ item }">
                 {{ $t(item.date) }}
             </template>
-            <template #total_pause="{ item }">
-                {{ item.total_pause }}
+            <template #sum_total_pause="{ item }">
+                {{ item.sum_total_pause }}
             </template>
             <template #total_sick_days="{ item }">
                 {{ item.total_sick_days }}
@@ -219,8 +218,8 @@ onMounted(async () => {
             <template #total_vacation_days="{ item }">
                 {{ item.total_vacation_days }}
             </template>
-            <template #total_work="{ item }">
-                {{ item.total_work }}
+            <template #sum_total_work="{ item }">
+                {{ item.sum_total_work }}
             </template>
             <template #total_work_days="{ item }">
                 {{ item.total_work_days }}

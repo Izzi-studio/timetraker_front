@@ -64,7 +64,7 @@ const fields = computed(() => {
         },
         {
             text: t('total_pause'),
-            key: 'sum_pause',
+            key: 'sum_total_pause',
             sortable: true,
         },
         {
@@ -193,8 +193,8 @@ const initDeleteCustomer = async () => {
                 <template #sum_total_work="{ item }">
                     {{ item.sum_total_work }}
                 </template>
-                <template #sum_pause="{ item }">
-                    {{ item.sum_pause }}
+                <template #sum_total_pause="{ item }">
+                    {{ item.sum_total_pause }}
                 </template>
                 <template #work_days_count="{ item }">
                     {{ item.work_days_count }}

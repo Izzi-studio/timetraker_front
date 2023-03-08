@@ -6,7 +6,6 @@ import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 import { useOwnersStore } from '@/stores/owners'
 import { months, years } from '@/helpers/vars'
-import getTextForTrackerStatuses from '@/helpers/getTextForTrackerStatuses'
 import { trackerStatuses } from '@/helpers/vars'
 import isSet from '@/helpers/isSet'
 
@@ -27,7 +26,7 @@ const ownersStore = useOwnersStore()
 const { loadCustomerStatistic, loadCustomer } = ownersStore
 const { isLoading, isShowModalEdit } = storeToRefs(ownersStore)
 
-const editTracker = ref(null)
+let editTracker = reactive({})
 
 const defaultYear = new Date().getFullYear()
 const isOpenFilter = ref(false)
@@ -55,10 +54,6 @@ const fieldsForYears = computed(() => {
             key: 'date'
         },
         {
-            text: t('total_pause'),
-            key: 'total_pause'
-        },
-        {
             text: t('total_sick_days'),
             key: 'total_sick_days'
         },
@@ -68,7 +63,11 @@ const fieldsForYears = computed(() => {
         },
         {
             text: t('total_work'),
-            key: 'total_work'
+            key: 'sum_total_work'
+        },
+        {
+            text: t('total_pause'),
+            key: 'sum_total_pause'
         },
         {
             text: t('total_work_days'),
@@ -175,8 +174,8 @@ const setEditTracker = (item) => {
         hours: +item.total_pause.split(':')[0],
         minutes: +item.total_pause.split(':')[1],
     }
-    
-    editTracker.value = obj
+
+    editTracker = obj
 }
 </script>
 
@@ -236,7 +235,7 @@ const setEditTracker = (item) => {
             </template>
             <template #current_status="{ item }">
                 <template v-if="!item.total">
-                    {{ $t(getTextForTrackerStatuses(item.current_status)) }}
+                    {{ $t(item.current_status) }}
                 </template>
             </template>
             <template #comments="{ item }">
@@ -261,8 +260,8 @@ const setEditTracker = (item) => {
             <template #date="{ item }">
                 {{ $t(item.date) }}
             </template>
-            <template #total_pause="{ item }">
-                {{ item.total_pause }}
+            <template #sum_total_pause="{ item }">
+                {{ item.sum_total_pause }}
             </template>
             <template #total_sick_days="{ item }">
                 {{ item.total_sick_days }}
@@ -270,8 +269,8 @@ const setEditTracker = (item) => {
             <template #total_vacation_days="{ item }">
                 {{ item.total_vacation_days }}
             </template>
-            <template #total_work="{ item }">
-                {{ item.total_work }}
+            <template #sum_total_work="{ item }">
+                {{ item.sum_total_work }}
             </template>
             <template #total_work_days="{ item }">
                 {{ item.total_work_days }}
@@ -311,11 +310,11 @@ const setEditTracker = (item) => {
             </div>
         </AppFilter>
 
-        <AppModal v-if="editTracker" v-model="isShowModalEdit" @closed="editTracker = null">
+        <AppModal v-if="editTracker.id" v-model="isShowModalEdit" @closed="editTracker = {}">
             <template v-slot:title>
                 <span>{{ `${$t(editTracker.date.split(',')[0])},  ${editTracker.date.split(',')[1]}` }}</span>
             </template>
-            <div>
+            <div class="app-field">
                 <p class="app-label">{{$t('start_work_time')}}</p>
                 <AppFormDatepicker
                     :auto-apply="true"
@@ -323,8 +322,11 @@ const setEditTracker = (item) => {
                     v-model="editTracker.date_start" 
                     time-picker
                 />
+                <!-- <div class="app-field__bottom">
+                    <div class="invalid-feedback">lorem </div>
+                </div> -->
             </div>
-            <div class="mt-4">
+            <div class="app-field mt-4">
                 <p class="app-label">{{$t('stop_work_time')}}</p>
                 <AppFormDatepicker
                     :auto-apply="true"
@@ -332,8 +334,11 @@ const setEditTracker = (item) => {
                     v-model="editTracker.date_stop" 
                     time-picker
                 />
+                <!-- <div class="app-field__bottom">
+                    <div class="invalid-feedback">lorem </div>
+                </div> -->
             </div>
-            <div class="mt-4">
+            <div class="app-field mt-4">
                 <p class="app-label">{{$t('total_pause')}}</p>
                 <AppFormDatepicker
                     :auto-apply="true"
@@ -341,6 +346,9 @@ const setEditTracker = (item) => {
                     v-model="editTracker.total_pause" 
                     time-picker
                 />
+                <!-- <div class="app-field__bottom">
+                    <div class="invalid-feedback">lorem </div>
+                </div> -->
             </div>
             <div class="mt-4">
                 <p class="app-label">{{ $t('current_status') }}</p>
