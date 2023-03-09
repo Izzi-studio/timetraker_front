@@ -99,7 +99,7 @@ const initLoadCompanies = async (isSearch) => {
 
         router.push({ query })
 
-        const data = await loadCompanies({...query, perPage: 1})
+        const data = await loadCompanies({...query})
 
         items.value = data.data
 
@@ -188,12 +188,9 @@ const initDeleteCompany = async () => {
                     {{ item.created_at }}
                 </template>
                 <template #actions="{ item }">
-                    <!-- <RouterLink :to="{name: 'company-customer-info', params: { id: item.id }}" class="btn btn-icon btn-blue">
+                    <RouterLink :to="{name: 'admin-company-info', params: { id: item.id }}" class="btn btn-icon btn-blue">
                         <i class="fa-solid fa-info"></i>
                     </RouterLink>
-                    <RouterLink :to="{name: 'company-customer-statistics', params: { id: item.id }}" class="btn btn-icon btn-blue ms-2">
-                        <i class="fa-solid fa-table"></i>
-                    </RouterLink> -->
                     <button @click="deleteItemId = item.id; isShowModalDeleteCompany = true" class="btn btn-icon btn-blue ms-2">
                         <i class="fa-solid fa-trash"></i>
                     </button>

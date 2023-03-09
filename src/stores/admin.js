@@ -42,6 +42,51 @@ export const useAdminStore = defineStore('admin', {
                 this.isLoading = false
             }
         },
+        async loadCompanyInfo(id) {
+            try {
+                this.isLoading = true
+
+                const response = await axiosHelper.get(`/admin/companies/${id}`)
+
+                return response.data.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async updateCompanyInfo(id, form) {
+            try {
+                this.isLoading = true
+
+                const response = await axiosHelper.post(`/admin/companies/${id}`, {
+                    ...form,
+                    _method: 'PUT'
+                })
+
+                return response.data.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async requestOnChangeCompanyInfo(id, val) {
+            try {
+                this.isLoading = true
+
+                const response = await axiosHelper.post(`/admin/change-info-company/${id}`, {
+                    approved: val,
+                    _method: 'PUT'
+                })
+
+                return response.data.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
         // async loadCustomer(id) {
         //     try {
         //         this.isLoading = true
@@ -141,34 +186,6 @@ export const useAdminStore = defineStore('admin', {
         //         })
 
         //         return response.data
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //     }
-        // },
-        // async loadCompanyInfo() {
-        //     try {
-        //         this.isLoading = true
-
-        //         const response = await axiosHelper.get('/owner/company')
-
-        //         return response.data.data
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //     }
-        // },
-        // async updateCompanyInfo(form) {
-        //     try {
-        //         this.isLoading = true
-
-        //         const response = await axiosHelper.post('/owner/company', form)
-
-        //         if (!response.data.result) {
-        //             throw new Error(response.data.message)
-        //         }
         //     } catch (e) {
         //         throw e
         //     } finally {

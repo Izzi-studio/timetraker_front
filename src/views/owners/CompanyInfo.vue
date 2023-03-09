@@ -103,7 +103,6 @@ const formHandler = async () => {
                 :label="$t('company_address')" 
             />
             <button :disabled="isDisabled" class="btn btn-blue mt-4">
-                <div v-if="isLoading" class="spinner-grow me-2"></div>
                 {{$t('update')}}
             </button>
         </form>

@@ -120,6 +120,9 @@ const de = {
     'id_name_email': 'ID / Name / Email',
     'are_you_sure_you_want_delete_company': 'Möchten Sie das Unternehmen wirklich löschen?',
     'i_agree_delete_company': 'Ich bin sicher, dass ich das Unternehmen löschen möchte',
+    'company_updated': 'Unternehmen aktualisiert',
+    'accept': 'Änderungen',
+    'request_on_change_data': 'Anfrage zur Datenänderung'
 }
 
 export default de
