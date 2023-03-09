@@ -3,85 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { getItem } from '@/helpers/persistanceStorage'
 
+import admin from './admin'
+import owners from './owners'
+import customers from './customers'
+import general from './general'
+
 const routes = [
-    {
-        path: '/',
-        name: 'home',
-        meta: { layout: 'main', auth: true },
-        component: () => import('@/views/Home'),
-    },
-    {
-        path: '/login',
-        name: 'login',
-        meta: { layout: 'empty' },
-        component: () => import('@/views/Login'),
-    },
-    {
-        path: '/companies',
-        name: 'companies',
-        meta: { layout: 'main', auth: true, role: 'admin' },
-        component: () => import('@/views/admin/CompaniesList'),
-    },
-    {
-        path: '/companies/:id',
-        name: 'admin-company-info',
-        meta: { layout: 'main', auth: true, role: 'admin' },
-        component: () => import('@/views/admin/CompanyInfo'),
-    },
-    {
-        path: '/time-tracking',
-        name: 'time-tracking',
-        meta: { layout: 'main', auth: true, role: 'customer' },
-        component: () => import('@/views/customers/TimeTracking'),
-    },
-    {
-        path: '/statistics',
-        name: 'statistics',
-        meta: { layout: 'main', auth: true, role: 'customer' },
-        component: () => import('@/views/customers/Statistics'),
-    },
-    {
-        path: '/customers',
-        name: 'company-customers',
-        meta: { layout: 'main', auth: true, role: 'owner' },
-        component: () => import('@/views/owners/CustomersList'),
-    },
-    {
-        path: '/customer/:id/view',
-        name: 'company-customer-info',
-        meta: { layout: 'main', auth: true, role: 'owner' },
-        component: () => import('@/views/owners/CustomerInfo'),
-    },
-    {
-        path: '/customer/:id/statistics',
-        name: 'company-customer-statistics',
-        meta: { layout: 'main', auth: true, role: 'owner' },
-        component: () => import('@/views/owners/CustomerStatistics'),
-    },
-    {
-        path: '/customers/create',
-        name: 'company-customer-create',
-        meta: { layout: 'main', auth: true, role: 'owner' },
-        component: () => import('@/views/owners/CustomerCreate'),
-    },
-    {
-        path: '/company-info',
-        name: 'company-info',
-        meta: { layout: 'main', auth: true, role: 'owner' },
-        component: () => import('@/views/owners/CompanyInfo'),
-    },
-    {
-        path: '/register-company',
-        name: 'register-company',
-        meta: { layout: 'empty' },
-        component: () => import('@/views/owners/CompanyRegister'),
-    },
-    {
-        path: '/:pathMatch(.*)*',
-        name: 'notFound',
-        meta: { layout: 'empty' },
-        component: () => import('@/views/NotFound'),
-    },
+    ...admin,
+    ...owners,
+    ...customers,
+    ...general,
 ]
 
 const router = createRouter({
