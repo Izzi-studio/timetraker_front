@@ -139,7 +139,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="container">
+    <div class="app-container">
         <div class="d-flex align-items-center justify-content-between">
             <h2 class="section-title">{{$t('statistics')}}</h2>
             <button class="btn btn-blue" @click="isOpenFilter = true">{{ $t('filter') }}</button>

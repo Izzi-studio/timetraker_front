@@ -107,7 +107,19 @@ const de = {
     'create_customer': 'Einen Mitarbeiter anlegen',
     'customer_created': 'Mitarbeiter erstellt',
     'customer_updated': 'Mitarbeiter aktualisiert',
-    'select': 'Wählen'
+    'select': 'Wählen',
+    'companies': 'Firmen',
+    'logout': 'Ausloggen',
+    'status': 'Status',
+    'company_status_active': 'Aktiv',
+    'company_status_inactiv': 'Nicht aktiv',
+    'company_status_blocked': 'Blockiert',
+    'company_deleted': 'Firma erfolgreich gelöscht',
+    'customers_count': 'Mitarbeiterzahl',
+    'created_at': 'Erstelldatum',
+    'id_name_email': 'ID / Name / Email',
+    'are_you_sure_you_want_delete_company': 'Möchten Sie das Unternehmen wirklich löschen?',
+    'i_agree_delete_company': 'Ich bin sicher, dass ich das Unternehmen löschen möchte',
 }
 
 export default de

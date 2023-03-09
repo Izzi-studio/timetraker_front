@@ -21,6 +21,21 @@ export const useOwnersStore = defineStore('owners', {
                 this.isLoading = false
             }
         },
+        async updateCustomerTracker(id, form) {
+            try {
+                this.isLoading = true
+
+                await axiosHelper.post(`/owner/statistic/tracker/${id}`, {
+                    ...form,
+                    _method: 'PUT'
+                })
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+                this.isShowModalEdit = false
+            }
+        },
         async updateCustomer(id, form) {
             try {
                 this.isLoading = true

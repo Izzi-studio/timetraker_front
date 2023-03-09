@@ -5,8 +5,8 @@ import { notify } from '@kyvg/vue3-notification'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 import { useOwnersStore } from '@/stores/owners'
-import { months, years } from '@/helpers/vars'
-import { trackerStatuses } from '@/helpers/vars'
+import { months, years, trackerStatuses } from '@/helpers/vars'
+import getFormattingTime from '@/helpers/getFormattingTime'
 import isSet from '@/helpers/isSet'
 
 import AppModal from '@/components/UI/AppModal'
@@ -23,10 +23,10 @@ const router = useRouter()
 const route = useRoute()
 
 const ownersStore = useOwnersStore()
-const { loadCustomerStatistic, loadCustomer } = ownersStore
+const { loadCustomerStatistic, loadCustomer, updateCustomerTracker } = ownersStore
 const { isLoading, isShowModalEdit } = storeToRefs(ownersStore)
 
-let editTracker = reactive({})
+const editTracker = ref(null)
 
 const defaultYear = new Date().getFullYear()
 const isOpenFilter = ref(false)
@@ -175,20 +175,105 @@ const setEditTracker = (item) => {
         minutes: +item.total_pause.split(':')[1],
     }
 
-    editTracker = obj
+    editTracker.value = obj
+}
+
+const isInvalidDateStart = computed(() => {
+    if(!editTracker.value) return true
+
+    if (editTracker.value.date_start.hours > editTracker.value.date_stop.hours) return true
+    
+    if (
+        editTracker.value.date_start.hours === editTracker.value.date_stop.hours &&
+        editTracker.value.date_start.minutes > editTracker.value.date_stop.minutes
+    ) {
+        return true
+    }
+
+    return false
+})
+
+const isInvalidDateStop = computed(() => {
+    if(!editTracker.value) return true
+
+    if (editTracker.value.date_stop.hours < editTracker.value.date_start.hours) return true
+    
+    if (
+        editTracker.value.date_stop.hours === editTracker.value.date_start.hours &&
+        editTracker.value.date_stop.minutes < editTracker.value.date_start.minutes
+    ) {
+        return true
+    }
+
+    return false
+})
+
+const isInvalidTotalPause = computed(() => {
+    if(!editTracker.value) return true
+
+    if(isInvalidDateStart.value || isInvalidDateStop.value) return true
+
+    let maxMinutesForMaxHour = editTracker.value.date_stop.minutes - editTracker.value.date_start.minutes
+    let maxHour = editTracker.value.date_stop.hours - editTracker.value.date_start.hours
+
+    if (maxMinutesForMaxHour < 0) {
+        maxHour = maxHour - 1
+        maxMinutesForMaxHour = 60 + maxMinutesForMaxHour
+    }
+
+    if (editTracker.value.total_pause.hours > maxHour) return true
+    
+    if (
+        editTracker.value.total_pause.hours === maxHour &&
+        editTracker.value.total_pause.minutes > maxMinutesForMaxHour
+    ) {
+        return true
+    }
+
+    return false
+})
+
+const isDisabledUpdateBtn = computed(() => {
+    if(isLoading.value) return true
+
+    if (!editTracker.value) return true
+
+    if (editTracker.value.current_status !== 'stop_day') return false
+
+    if (isInvalidDateStart.value || isInvalidDateStop.value || isInvalidTotalPause.value) return true
+
+    return false
+})
+
+const initUpdateCustomerTracker = async () => {
+    try {
+        await updateCustomerTracker(editTracker.value.id, {
+            date_start: getFormattingTime(editTracker.value.date_start.hours, editTracker.value.date_start.minutes),
+            date_stop: getFormattingTime(editTracker.value.date_stop.hours, editTracker.value.date_stop.minutes),
+            pause: getFormattingTime(editTracker.value.total_pause.hours, editTracker.value.total_pause.minutes),
+            current_status: editTracker.value.current_status,
+            comments: editTracker.value.comments,
+        })
+
+        initLoadCustomerStatistic()
+    } catch (e) {
+        notify({ type: "error", text: e.message })
+    }
 }
 </script>
 
 <template>
-    <div class="container">
+    <div class="app-container">
         <div class="breadcrumbs">
-            <RouterLink :to="{name: 'owner-customers'}">{{$t('customers')}}</RouterLink>
+            <RouterLink :to="{name: 'company-customers'}">{{$t('customers')}}</RouterLink>
             <span v-if="customerName">{{ customerName }}</span>
         </div>
+        
         <div class="d-flex align-items-center justify-content-between mt-4">
             <h2 class="section-title">{{$t('statistics')}}</h2>
             <button class="btn btn-blue" @click="isOpenFilter = true">{{ $t('filter') }}</button>
         </div>
+        
         <AppTable
             v-if="items.length && filterParams.month && !isLoading"
             class-wrap="mt-4 pt-2"
@@ -310,62 +395,64 @@ const setEditTracker = (item) => {
             </div>
         </AppFilter>
 
-        <AppModal v-if="editTracker.id" v-model="isShowModalEdit" @closed="editTracker = {}">
+        <AppModal v-if="editTracker" v-model="isShowModalEdit" @closed="editTracker = null">
             <template v-slot:title>
                 <span>{{ `${$t(editTracker.date.split(',')[0])},  ${editTracker.date.split(',')[1]}` }}</span>
             </template>
-            <div class="app-field">
-                <p class="app-label">{{$t('start_work_time')}}</p>
-                <AppFormDatepicker
-                    :auto-apply="true"
-                    mode-height="120"
-                    v-model="editTracker.date_start" 
-                    time-picker
-                />
-                <!-- <div class="app-field__bottom">
-                    <div class="invalid-feedback">lorem </div>
-                </div> -->
-            </div>
-            <div class="app-field mt-4">
-                <p class="app-label">{{$t('stop_work_time')}}</p>
-                <AppFormDatepicker
-                    :auto-apply="true"
-                    mode-height="120"
-                    v-model="editTracker.date_stop" 
-                    time-picker
-                />
-                <!-- <div class="app-field__bottom">
-                    <div class="invalid-feedback">lorem </div>
-                </div> -->
-            </div>
-            <div class="app-field mt-4">
-                <p class="app-label">{{$t('total_pause')}}</p>
-                <AppFormDatepicker
-                    :auto-apply="true"
-                    mode-height="120"
-                    v-model="editTracker.total_pause" 
-                    time-picker
-                />
-                <!-- <div class="app-field__bottom">
-                    <div class="invalid-feedback">lorem </div>
-                </div> -->
-            </div>
-            <div class="mt-4">
+            <template v-if="editTracker.current_status === 'stop_day'">
+                <div class="app-field mb-4">
+                    <p class="app-label">{{$t('start_work_time')}}</p>
+                    <AppFormDatepicker
+                        :auto-apply="true"
+                        mode-height="120"
+                        v-model="editTracker.date_start" 
+                        time-picker
+                    />
+                    <div v-if="isInvalidDateStart" class="app-field__bottom">
+                        <div class="invalid-feedback">{{$t('incorrect_field')}}</div>
+                    </div>
+                </div>
+                <div class="app-field mb-4">
+                    <p class="app-label">{{$t('stop_work_time')}}</p>
+                    <AppFormDatepicker
+                        :auto-apply="true"
+                        mode-height="120"
+                        v-model="editTracker.date_stop" 
+                        time-picker
+                    />
+                    <div v-if="isInvalidDateStop" class="app-field__bottom">
+                        <div class="invalid-feedback">{{$t('incorrect_field')}}</div>
+                    </div>
+                </div>
+                <div class="app-field mb-4">
+                    <p class="app-label">{{$t('total_pause')}}</p>
+                    <AppFormDatepicker
+                        :auto-apply="true"
+                        mode-height="120"
+                        v-model="editTracker.total_pause" 
+                        time-picker
+                    />
+                    <div v-if="isInvalidTotalPause" class="app-field__bottom">
+                        <div class="invalid-feedback">{{$t('incorrect_field')}}</div>
+                    </div>
+                </div>
+            </template>
+            <div class="mb-4">
                 <p class="app-label">{{ $t('current_status') }}</p>
                 <AppFormSelect 
                     v-model="editTracker.current_status"
                     :options="trackerStatuses"
-                    :getOptionLabel="option => $t(option.name)"
+                    :reduce="option => option"
+                    :getOptionLabel="option => $t(option)"
                 />
             </div>
             <AppFormTextarea
-                class="mt-4"
                 :label="$t('comments')" 
                 v-model="editTracker.comments" 
             />
             <div class="mt-3 d-flex justify-content-start">
                 <button @click="isShowModalEdit = false" class="btn btn-red">{{ $t('cancel') }}</button>
-                <button class="btn btn-blue ms-3">{{ $t('update') }}</button>
+                <button @click="initUpdateCustomerTracker" :disabled="isDisabledUpdateBtn" class="btn btn-blue ms-3">{{ $t('update') }}</button>
             </div>
         </AppModal>
     </div>

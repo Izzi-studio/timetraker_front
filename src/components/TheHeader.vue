@@ -72,16 +72,21 @@ watch(() => route.name, () => {
                     </template>
                     <template v-if="isUserOwner">
                         <li class="header__item">
-                            <RouterLink :to="{ name: 'owner-customers' }">{{ $t('customers') }}</RouterLink>
+                            <RouterLink :to="{ name: 'company-customers' }">{{ $t('customers') }}</RouterLink>
                         </li>
                         <li class="header__item">
-                            <RouterLink :to="{ name: 'owner-info' }">{{ $t('company_info') }}</RouterLink>
+                            <RouterLink :to="{ name: 'company-info' }">{{ $t('company_info') }}</RouterLink>
+                        </li>
+                    </template>
+                    <template v-if="isUserAdmin">
+                        <li class="header__item">
+                            <RouterLink :to="{ name: 'companies' }">{{ $t('companies') }}</RouterLink>
                         </li>
                     </template>
                 </ul>
                 <ul class="header__action">
                     <li class="header__item">
-                        <button class="btn-link color-red" @click="initLogout">Ausloggen</button>
+                        <button class="btn-link color-red" @click="initLogout">{{$t('logout')}}</button>
                     </li>
                 </ul>
             </div>

@@ -169,7 +169,7 @@ const initDeleteCustomer = async () => {
         </div>
 
         <div class="mt-4">
-            <RouterLink class="btn btn-blue" :to="{ name: 'owner-customer-create'}">{{$t('create')}}</RouterLink>
+            <RouterLink class="btn btn-blue" :to="{ name: 'company-customer-create'}">{{$t('create')}}</RouterLink>
         </div>
 
         <div v-if="items.length" :class="{'state-update': isLoading}">
@@ -209,10 +209,10 @@ const initDeleteCustomer = async () => {
                     {{ item.weekend_days_count }}
                 </template>
                 <template #actions="{ item }">
-                    <RouterLink :to="{name: 'owner-customer-info', params: { id: item.id }}" class="btn btn-icon btn-blue">
+                    <RouterLink :to="{name: 'company-customer-info', params: { id: item.id }}" class="btn btn-icon btn-blue">
                         <i class="fa-solid fa-info"></i>
                     </RouterLink>
-                    <RouterLink :to="{name: 'owner-customer-statistics', params: { id: item.id }}" class="btn btn-icon btn-blue ms-2">
+                    <RouterLink :to="{name: 'company-customer-statistics', params: { id: item.id }}" class="btn btn-icon btn-blue ms-2">
                         <i class="fa-solid fa-table"></i>
                     </RouterLink>
                     <button @click="deleteItemId = item.id; isShowModalDeleteCustomer = true" class="btn btn-icon btn-blue ms-2">

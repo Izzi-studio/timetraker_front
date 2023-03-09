@@ -52,7 +52,7 @@ const formHandler = async () => {
     try {
         await createCustomer(form)
 
-        router.push({ name: 'owner-customers' })
+        router.push({ name: 'company-customers' })
 
         notify({ type: "success", text: t('customer_created') })
     } catch (e) {
@@ -64,7 +64,7 @@ const formHandler = async () => {
 <template>
     <div class="container">
         <div class="breadcrumbs">
-            <RouterLink :to="{name: 'owner-customers'}">{{$t('customers')}}</RouterLink>
+            <RouterLink :to="{name: 'company-customers'}">{{$t('customers')}}</RouterLink>
             <span>{{$t('create_customer')}}</span>
         </div>
         <form class="mt-4" @submit.prevent="formHandler">

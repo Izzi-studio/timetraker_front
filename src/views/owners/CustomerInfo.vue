@@ -80,7 +80,7 @@ onMounted(async () => {
 <template>
     <div class="container">
         <div class="breadcrumbs">
-            <RouterLink :to="{name: 'owner-customers'}">{{$t('customers')}}</RouterLink>
+            <RouterLink :to="{name: 'company-customers'}">{{$t('customers')}}</RouterLink>
             <span>{{ customerName }}</span>
         </div>
         <form class="mt-4" @submit.prevent="formHandler">
