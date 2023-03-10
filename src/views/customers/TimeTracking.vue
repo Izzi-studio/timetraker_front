@@ -59,7 +59,7 @@ const initUpdateComments = async () => {
         <h2 class="section-title">{{$t('time_tracking')}}</h2>
         <template v-if="currentDay">
             <h3 v-if="currentDay.date_start && currentDay.date_stop" class="mt-4">{{$t('work_time_closed')}}</h3>
-            <div v-else class="row">
+            <div v-else-if="actions" class="row">
                 <div class="col-auto mt-4">
                     <button
                         @click="initTracker('start_day')"

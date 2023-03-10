@@ -4,8 +4,8 @@ import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { notify } from '@kyvg/vue3-notification'
 import { useI18n } from 'vue-i18n'
-import { useOwnersStore } from '@/stores/owners'
-import { required, minLength, email, requiredIf } from '@vuelidate/validators'
+import { useAdminStore } from '@/stores/admin'
+import { required, minLength, email } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import AppFormInput from '@/components/UI/AppFormInput'
 
@@ -13,9 +13,9 @@ const { t } = useI18n()
 
 const route = useRoute()
 
-const ownersStore = useOwnersStore()
-const { loadCustomer, updateCustomer } = ownersStore
-const { isLoading } = storeToRefs(ownersStore)
+const adminStore = useAdminStore()
+const { loadCustomer, updateCustomer, loadCompanyInfo } = adminStore
+const { isLoading } = storeToRefs(adminStore)
 
 const form = reactive({
     name: '',
@@ -25,6 +25,7 @@ const form = reactive({
     password_confirmation: '',
 })
 
+const companyName = ref('')
 const customerName = ref('') 
 
 const rules = {
@@ -51,7 +52,7 @@ const formHandler = async () => {
     }
 
     try {
-        await updateCustomer(route.params.id, {
+        await updateCustomer(route.params.customerId, {
             ...form,
             password: form.password || null,
             password_confirmation: form.password_confirmation || null,
@@ -68,7 +69,7 @@ const formHandler = async () => {
 
 onMounted(async () => {
     try {
-        const data = await loadCustomer(route.params.id)
+        const data = await loadCustomer(route.params.customerId)
 
         form.name = data.name
         form.email = data.email
@@ -79,12 +80,29 @@ onMounted(async () => {
         notify({ type: "error", text: e.message })
     }
 })
+
+onMounted(async () => {
+    try {
+        const data = await loadCompanyInfo(route.params.companyId)
+        companyName.value = data.company_name
+    } catch (e) {
+        notify({ type: "error", text: e.message })
+    }
+})
 </script>
 
 <template>
     <div class="container">
         <div class="breadcrumbs">
-            <RouterLink :to="{name: 'company-customers'}">{{$t('customers')}}</RouterLink>
+            <RouterLink :to="{name: 'companies'}">
+                {{$t('companies')}}
+            </RouterLink>
+            <RouterLink :to="{name: 'admin-company-info', params: { id: route.params.companyId }}">
+                {{ companyName }}
+            </RouterLink>
+            <RouterLink :to="{name: 'admin-company-customers', params: { id: route.params.companyId }}">
+                {{$t('customers')}}
+            </RouterLink>
             <span>{{ customerName }}</span>
         </div>
         <form class="mt-4" @submit.prevent="formHandler">

@@ -182,7 +182,10 @@ const initDeleteCustomer = async () => {
                 @update-sort-params="sortParams = $event; initLoadCustomers()"
             >
                 <template #name="{ item }">
-                    {{ item.name }}
+                    <span :class="{'color-blue': item.owner}">
+                        {{ item.name }}
+                        <sup v-if="item.owner">{{$t('owner')}}</sup>
+                    </span>
                 </template>
                 <template #email="{ item }">
                     {{ item.email }}
@@ -215,7 +218,7 @@ const initDeleteCustomer = async () => {
                     <RouterLink :to="{name: 'company-customer-statistics', params: { id: item.id }}" class="btn btn-icon btn-blue ms-2">
                         <i class="fa-solid fa-table"></i>
                     </RouterLink>
-                    <button @click="deleteItemId = item.id; isShowModalDeleteCustomer = true" class="btn btn-icon btn-blue ms-2">
+                    <button :disabled="item.owner" @click="deleteItemId = item.id; isShowModalDeleteCustomer = true" class="btn btn-icon btn-blue ms-2">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </template>

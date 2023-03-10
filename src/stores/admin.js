@@ -6,7 +6,7 @@ export const useAdminStore = defineStore('admin', {
         isLoading: false,
         isShowModalDeleteCustomer: false,
         isShowModalDeleteCompany: false,
-        isShowModalEdit: false,
+        isShowModalEditStatistic: false,
     }),
     actions: {
         async loadCompanies(params) {
@@ -87,110 +87,113 @@ export const useAdminStore = defineStore('admin', {
                 this.isLoading = false
             }
         },
-        // async loadCustomer(id) {
-        //     try {
-        //         this.isLoading = true
+        async loadCustomer(id) {
+            try {
+                this.isLoading = true
 
-        //         const response = await axiosHelper.get(`/owner/customers/${id}`)
+                const response = await axiosHelper.get(`/admin/customers/${id}`)
 
-        //         return response.data.data
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //     }
-        // },
-        // async updateCustomerTracker(id, form) {
-        //     try {
-        //         this.isLoading = true
+                return response.data.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async updateCustomerTracker(id, form) {
+            try {
+                this.isLoading = true
 
-        //         await axiosHelper.post(`/owner/statistic/tracker/${id}`, {
-        //             ...form,
-        //             _method: 'PUT'
-        //         })
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //         this.isShowModalEdit = false
-        //     }
-        // },
-        // async updateCustomer(id, form) {
-        //     try {
-        //         this.isLoading = true
+                await axiosHelper.post(`/admin/statistic/tracker/${id}`, {
+                    ...form,
+                    _method: 'PUT'
+                })
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+                this.isShowModalEditStatistic = false
+            }
+        },
+        async updateCustomer(id, form) {
+            try {
+                this.isLoading = true
 
-        //         await axiosHelper.post(`/owner/customers/${id}`, {
-        //             ...form,
-        //             _method: 'PUT'
-        //         })
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //     }
-        // },
-        // async createCustomer(form) {
-        //     try {
-        //         this.isLoading = true
+                await axiosHelper.post(`/admin/customers/${id}`, {
+                    ...form,
+                    _method: 'PUT'
+                })
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async createCustomer(id, form) {
+            try {
+                this.isLoading = true
 
-        //         const response = await axiosHelper.post('/owner/register-customer', form)
+                const response = await axiosHelper.post('/admin/customers', {
+                    ...form,
+                    company_id: id
+                })
 
-        //         if (!response.data.result) {
-        //             throw new Error(response.data.message)
-        //         }
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //     }
-        // },
-        // async deleteCustomer(id) {
-        //     try {
-        //         this.isLoading = true
+                if (!response.data.result) {
+                    throw new Error(response.data.message)
+                }
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async deleteCustomer(id) {
+            try {
+                this.isLoading = true
 
-        //         const response = await axiosHelper.post(`/owner/customers/${id}`, {
-        //            _method: 'DELETE' 
-        //         })
+                const response = await axiosHelper.post(`/admin/customers/${id}`, {
+                   _method: 'DELETE' 
+                })
 
-        //         if (!response.data.result) {
-        //             throw new Error(response.data.message)
-        //         }
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isShowModalDeleteCustomer = false
-        //         this.isLoading = false
-        //     }
-        // },
-        // async loadCustomers(params) {
-        //     try {
-        //         this.isLoading = true
+                if (!response.data.result) {
+                    throw new Error(response.data.message)
+                }
+            } catch (e) {
+                throw e
+            } finally {
+                this.isShowModalDeleteCustomer = false
+                this.isLoading = false
+            }
+        },
+        async loadCustomers(params) {
+            try {
+                this.isLoading = true
 
-        //         const response = await axiosHelper.get('/owner/customers', {
-        //             params
-        //         })
+                const response = await axiosHelper.get('/admin/customers', {
+                    params
+                })
 
-        //         return response.data
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //     }
-        // },
-        // async loadCustomerStatistic(id, params) {
-        //     try {
-        //         this.isLoading = true
+                return response.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
+        async loadCustomerStatistic(id, params) {
+            try {
+                this.isLoading = true
 
-        //         const response = await axiosHelper.get(`/owner/statistic/${id}`, {
-        //             params
-        //         })
+                const response = await axiosHelper.get(`/admin/statistic/${id}`, {
+                    params
+                })
 
-        //         return response.data
-        //     } catch (e) {
-        //         throw e
-        //     } finally {
-        //         this.isLoading = false
-        //     }
-        // },
+                return response.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.isLoading = false
+            }
+        },
     },
 })

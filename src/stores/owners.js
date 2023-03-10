@@ -54,7 +54,7 @@ export const useOwnersStore = defineStore('owners', {
             try {
                 this.isLoading = true
 
-                const response = await axiosHelper.post('/owner/register-customer', form)
+                const response = await axiosHelper.post('/owner/customers', form)
 
                 if (!response.data.result) {
                     throw new Error(response.data.message)

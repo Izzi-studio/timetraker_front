@@ -191,9 +191,9 @@ const initDeleteCompany = async () => {
                     <RouterLink :to="{name: 'admin-company-info', params: { id: item.id }}" class="btn btn-icon btn-blue">
                         <i class="fa-solid fa-info"></i>
                     </RouterLink>
-                    <!-- <RouterLink :to="{name: 'admin-company-info', params: { id: item.id }}" class="btn btn-icon btn-blue">
+                    <RouterLink :to="{name: 'admin-company-customers', params: { id: item.id }}" class="btn btn-icon btn-blue ms-2">
                         <i class="fa-solid fa-users"></i>
-                    </RouterLink> -->
+                    </RouterLink>
                     <button @click="deleteItemId = item.id; isShowModalDeleteCompany = true" class="btn btn-icon btn-blue ms-2">
                         <i class="fa-solid fa-trash"></i>
                     </button>

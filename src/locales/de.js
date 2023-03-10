@@ -122,7 +122,8 @@ const de = {
     'i_agree_delete_company': 'Ich bin sicher, dass ich das Unternehmen löschen möchte',
     'company_updated': 'Unternehmen aktualisiert',
     'accept': 'Änderungen',
-    'request_on_change_data': 'Anfrage zur Datenänderung'
+    'request_on_change_data': 'Anfrage zur Datenänderung',
+    'owner': 'Eigentümer'
 }
 
 export default de

@@ -12,13 +12,13 @@ export default [
         component: () => import('@/views/owners/CustomersList'),
     },
     {
-        path: '/customer/:id/view',
+        path: '/customers/:id/view',
         name: 'company-customer-info',
         meta: { layout: 'main', auth: true, role: 'owner' },
         component: () => import('@/views/owners/CustomerInfo'),
     },
     {
-        path: '/customer/:id/statistics',
+        path: '/customers/:id/statistics',
         name: 'company-customer-statistics',
         meta: { layout: 'main', auth: true, role: 'owner' },
         component: () => import('@/views/owners/CustomerStatistics'),
